@@ -1,32 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Video } from '../../types';
+import apiKey from '../../api-key';
+
 // import MainPage from '../MainPage/MainPage';
 
 function App(): JSX.Element {
   const [videos, setVideos] = useState<Video[]>([]);
 
   useEffect(() => {
-    gapi.load('client', () => {
-      gapi.client.setApiKey('AIzaSyAiY71GWJe0d2FNWibz1jK1I9zra9Batp8');
-      return gapi.client.load('youtube', 'v3', () => {
-        gapi.client.youtube.videos
-          .list({
-            part: ['id'],
-            chart: 'mostPopular',
-            regionCode: 'RU',
-            maxResults: 10,
-          })
-          .then(
-            function (response) {
-              // Handle the results here (response.result has the parsed body).
-              console.log(response.result.items);
-            },
-            function (err) {
-              console.error('Ошибка получения данных из API', err);
-            }
-          );
+    fetch(
+      `https://www.googleapis.com/youtube/v3/search/?key=${apiKey}&part=snippet&maxResults=10`
+    )
+      .then((response) => response.json())
+      .then((data: any) => {
+        // кладём массив в переменную состояния drinks
+        console.log(data);
+
+        setVideos(data);
       });
-    });
   }, []);
 
   return (
