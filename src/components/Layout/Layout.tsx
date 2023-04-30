@@ -1,10 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 type LayoutProps = {
   children?: ReactNode;
+  onClick: (buttonText: string) => void;
 };
 
-function Layout({ children }: LayoutProps) {
+function Layout({ children, onClick }: LayoutProps) {
+  const [activeHomeButton, setActiveHomeButton] = useState<boolean>(true);
+  const [activeFavouriteButton, setActiveFavouriteButton] =
+    useState<boolean>(false);
   return (
     <>
       <header className="header border-bottom">
@@ -85,8 +89,17 @@ function Layout({ children }: LayoutProps) {
             <li className="nav-item">
               <a
                 href="#"
-                className="nav-link active d-flex"
+                className={
+                  activeHomeButton
+                    ? 'nav-link d-flex active'
+                    : 'nav-link d-flex text-white'
+                }
                 aria-current="page"
+                onClick={() => {
+                  onClick('home');
+                  setActiveHomeButton(true);
+                  setActiveFavouriteButton(false);
+                }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +116,19 @@ function Layout({ children }: LayoutProps) {
               </a>
             </li>
             <li>
-              <a href="#" className="nav-link text-white d-flex ">
+              <a
+                href="#"
+                className={
+                  activeFavouriteButton
+                    ? 'nav-link d-flex active'
+                    : 'nav-link d-flex text-white'
+                }
+                onClick={() => {
+                  onClick('favourites');
+                  setActiveHomeButton(false);
+                  setActiveFavouriteButton(true);
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"

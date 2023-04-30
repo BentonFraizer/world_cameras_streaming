@@ -35,12 +35,21 @@ header .container {
 .videos {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-start;
   padding: 20px 0px 0px 0px;
+}
+
+.video-container {
+  margin: 0px 20px 20px 0px;
 }
 
 iframe {
   height: 200px;
   width: 360px;
-  margin: 0px 20px 20px 0px;
+  margin: 0px 0px 10px 0px;
+}
+
+.add-to-favourites {
+  margin: 0 auto;
+  width: 90%;
 }
