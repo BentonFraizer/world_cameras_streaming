@@ -1,0 +1,46 @@
+header {
+  height: 90px;
+}
+
+header .container {
+  height: 90px;
+}
+
+.logo img {
+  width: 100px;
+}
+
+.header-search {
+  width: 100%;
+  max-width: 300px;
+}
+
+.sidebar-menu {
+  padding: 15px 0px 0px 30px;
+}
+
+.nav-link {
+  align-items: center;
+}
+
+.bi-house-fill,
+.bi-star-fill {
+  margin-right: 13px;
+}
+
+.container-fluid {
+  height: 100%;
+}
+
+.videos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px 0px 0px 0px;
+}
+
+iframe {
+  height: 200px;
+  width: 360px;
+  margin: 0px 20px 20px 0px;
+}
