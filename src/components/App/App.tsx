@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Video } from '../../types';
+import VideosList from '../Videos-List/Videos-List';
 import apiKey from '../../api-key';
+const KEY_WORD = 'санкт+пербург';
 
 // import MainPage from '../MainPage/MainPage';
 
 function App(): JSX.Element {
   const [videos, setVideos] = useState<Video[]>([]);
 
+  // Получаем из API данные по необходимым видео
   useEffect(() => {
     fetch(
-      `https://www.googleapis.com/youtube/v3/search/?key=${apiKey}&part=snippet&maxResults=10`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${KEY_WORD}+street+live+camera&type=stream&key=${apiKey}`
     )
       .then((response) => response.json())
-      .then((data: any) => {
-        // кладём массив в переменную состояния drinks
+      .then((data) => {
         console.log(data);
-
-        setVideos(data);
+        if (data) {
+          setVideos(data.items);
+        }
       });
   }, []);
 
   return (
     <div className="main">
-      <h1>Всё до сих пор работает</h1>
-      <p>Hello, world!</p>
-      {/* <MainPage videos={videos} /> */}
+      <VideosList videos={videos} />
     </div>
   );
 }
