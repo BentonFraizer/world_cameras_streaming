@@ -1,0 +1,12 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+import { Video } from '../../types';
+
+function MainPage(videos: Video) {
+  return videos.map((video) => {
+    <h2>{video}</h2>;
+  });
+}
+
+export default MainPage;
