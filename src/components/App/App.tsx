@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import debounce from 'lodash.debounce';
 import { Video } from '../../types';
 import VideosList from '../VideosList/VideosList';
 import Layout from '../Layout/Layout';
@@ -6,7 +7,7 @@ import apiKey from '../../api-key';
 
 import mockVideos from '../../mock/mock-videos';
 
-const KEY_WORD = 'Камин';
+// const KEY_WORD = '';
 
 // import MainPage from '../MainPage/MainPage';
 
@@ -14,20 +15,23 @@ function App(): JSX.Element {
   const [page, setPage] = useState('home');
   const [videos, setVideos] = useState<Video[]>(mockVideos);
   const [favouriteVideos, setFavouriteVideos] = useState<Video[]>([]);
+  const [query, setQuery] = useState('');
 
   // Получаем из API данные по необходимым видео
-  // useEffect(() => {
-  //   fetch(
-  //     `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${KEY_WORD}+live+camera&type=stream&key=${apiKey}`
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       if (data) {
-  //         setVideos(data.items);
-  //       }
-  //     });
-  // }, []);
+  useEffect(() => {
+    // if (KEY_WORD) {
+    // fetch(
+    //   `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}+live+camera&type=stream&key=${apiKey}`
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data) {
+    //       setVideos(data.items);
+    //     }
+    // });
+    // }
+  }, [query]);
 
   const onAddFavoriteBtnClick = (gettedStringId: string) => {
     const favoriteVideo = videos.filter(
@@ -48,8 +52,17 @@ function App(): JSX.Element {
     setPage(buttonText);
   };
 
+  const onChoosePlaceInputChange = (
+    evt: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    evt.preventDefault();
+    setQuery(evt.target.value);
+  };
+
+  const debouncedOnChange = debounce(onChoosePlaceInputChange, 400);
+
   return (
-    <Layout onClick={onMenuButtonClick}>
+    <Layout onClick={onMenuButtonClick} onSubmit={debouncedOnChange}>
       {page === 'home' && (
         <VideosList videos={videos} onClick={onAddFavoriteBtnClick} />
       )}
@@ -57,7 +70,6 @@ function App(): JSX.Element {
       {page === 'favourites' && (
         <VideosList videos={favouriteVideos} onClick={onAddFavoriteBtnClick} />
       )}
-      {/* {videos && } */}
     </Layout>
   );
 }

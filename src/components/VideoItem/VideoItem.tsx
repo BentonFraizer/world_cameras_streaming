@@ -12,7 +12,7 @@ function VideoItem({ video, onClick }: VideoItemProps): JSX.Element {
         src={`https://www.youtube-nocookie.com/embed/${video.id.videoId}`}
         title={video.snippet.title}
         frameBorder="0"
-        // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       ></iframe>
       <button
@@ -20,7 +20,7 @@ function VideoItem({ video, onClick }: VideoItemProps): JSX.Element {
         className="add-to-favourites btn btn-outline-light"
         onClick={() => (onClick ? onClick(video.id.videoId) : null)}
       >
-        Добавить в избранное
+        Add to favorites
       </button>
     </div>
   );
