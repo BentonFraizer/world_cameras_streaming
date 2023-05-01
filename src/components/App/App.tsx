@@ -29,7 +29,7 @@ function App(): JSX.Element {
     //     if (data) {
     //       setVideos(data.items);
     //     }
-    // });
+    //   });
     // }
   }, [query]);
 
