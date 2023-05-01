@@ -2,9 +2,25 @@ import { Video } from '../../types';
 type VideoItemProps = {
   video: Video;
   onClick?: (id: string) => void;
+  favouriteVideos?: Video[];
 };
 
-function VideoItem({ video, onClick }: VideoItemProps): JSX.Element {
+function VideoItem({
+  video,
+  onClick,
+  favouriteVideos,
+}: VideoItemProps): JSX.Element {
+  console.log('ppp', favouriteVideos);
+
+  const favoriteVideosIDs: string[] = [];
+  favouriteVideos?.map((favoriteVideo) =>
+    favoriteVideosIDs.push(favoriteVideo.id.videoId)
+  );
+
+  const isInFavorites = favoriteVideosIDs.includes(video.id.videoId);
+
+  console.log('favoriteVideosIDs', favoriteVideosIDs);
+
   return (
     <div className="video-container d-flex flex-column">
       <iframe
@@ -15,13 +31,24 @@ function VideoItem({ video, onClick }: VideoItemProps): JSX.Element {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       ></iframe>
-      <button
-        type="button"
-        className="add-to-favourites btn btn-outline-light"
-        onClick={() => (onClick ? onClick(video.id.videoId) : null)}
-      >
-        Add to favorites
-      </button>
+
+      {isInFavorites ? (
+        <button
+          type="button"
+          className="add-to-favourites btn btn-outline-danger"
+          onClick={() => (onClick ? onClick(video.id.videoId) : null)}
+        >
+          Remove from favorites
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="add-to-favourites btn btn-outline-success"
+          onClick={() => (onClick ? onClick(video.id.videoId) : null)}
+        >
+          Add to favorites
+        </button>
+      )}
     </div>
   );
 }

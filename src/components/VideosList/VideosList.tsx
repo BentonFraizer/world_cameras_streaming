@@ -4,13 +4,23 @@ import { Video } from '../../types';
 type VideoItemProps = {
   videos: Video[];
   onClick: (id: string) => void;
+  favouriteVideos?: Video[];
 };
 
-function VideosList({ videos, onClick }: VideoItemProps): JSX.Element {
+function VideosList({
+  videos,
+  onClick,
+  favouriteVideos,
+}: VideoItemProps): JSX.Element {
   return (
     <div className="videos">
       {videos.map((video) => (
-        <VideoItem key={video.id.videoId} video={video} onClick={onClick} />
+        <VideoItem
+          key={video.id.videoId}
+          video={video}
+          onClick={onClick}
+          favouriteVideos={favouriteVideos}
+        />
       ))}
     </div>
   );
