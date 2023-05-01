@@ -5,32 +5,28 @@ import VideosList from '../VideosList/VideosList';
 import Layout from '../Layout/Layout';
 import apiKey from '../../api-key';
 
-import mockVideos from '../../mock/mock-videos';
+// import mockVideos from '../../mock/mock-videos';
 
 // const KEY_WORD = '';
 
-// import MainPage from '../MainPage/MainPage';
-
 function App(): JSX.Element {
   const [page, setPage] = useState('home');
-  const [videos, setVideos] = useState<Video[]>(mockVideos);
+  const [videos, setVideos] = useState<Video[]>([]);
   const [favouriteVideos, setFavouriteVideos] = useState<Video[]>([]);
   const [query, setQuery] = useState('');
 
   // Получаем из API данные по необходимым видео
   useEffect(() => {
-    // if (KEY_WORD) {
-    // fetch(
-    //   `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}+live+camera&type=stream&key=${apiKey}`
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data) {
-    //       setVideos(data.items);
-    //     }
-    //   });
-    // }
+    fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}+live+camera&type=stream&key=${apiKey}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data) {
+          setVideos(data.items);
+        }
+      });
   }, [query]);
 
   const onAddFavoriteBtnClick = (gettedStringId: string) => {
