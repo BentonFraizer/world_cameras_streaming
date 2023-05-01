@@ -11,8 +11,6 @@ function Layout({ children, onClick, onSubmit }: LayoutProps) {
   const [activeFavouriteButton, setActiveFavouriteButton] =
     useState<boolean>(false);
 
-  // пишу обработчик
-
   return (
     <>
       <header className="header border-bottom">

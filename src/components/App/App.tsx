@@ -64,11 +64,19 @@ function App(): JSX.Element {
   return (
     <Layout onClick={onMenuButtonClick} onSubmit={debouncedOnChange}>
       {page === 'home' && (
-        <VideosList videos={videos} onClick={onAddFavoriteBtnClick} />
+        <VideosList
+          videos={videos}
+          onClick={onAddFavoriteBtnClick}
+          favouriteVideos={favouriteVideos}
+        />
       )}
 
       {page === 'favourites' && (
-        <VideosList videos={favouriteVideos} onClick={onAddFavoriteBtnClick} />
+        <VideosList
+          videos={favouriteVideos}
+          onClick={onAddFavoriteBtnClick}
+          favouriteVideos={favouriteVideos}
+        />
       )}
     </Layout>
   );
@@ -77,8 +85,8 @@ function App(): JSX.Element {
 export default App;
 
 // Дела
-// 1. Изменение кнопок "Добавить в избранное" на "Удалить из избранного"
-// 2. Реализовать поиск
+//! 1. Изменение кнопок "Добавить в избранное" на "Удалить из избранного"
+//! 2. Реализовать поиск
 // 3. Реализовать select с выбором количества выводимых видео
 // 4. Реализовать анимированный фон (https://codepen.io/alvarotrigo/pen/gOddjdL)
 // 5. Заставку на время входа на сайт
